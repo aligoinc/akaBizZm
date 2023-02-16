@@ -1,0 +1,23 @@
+html {
+  min-width:350px;
+}
+
+#app {
+  padding: 20px 20px 20px 20px;
+}
+
+.loginColumns {
+  margin: 0 auto;
+}
+
+#content {
+  min-height: 150px;
+  align-items: center;
+  justify-content: center;
+}
+
+#start-pause-btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+}
