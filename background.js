@@ -1,14 +1,21 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(request);
-  addActivity(request);
+  switch (request.type) {
+    case "add_activity":
+      addActivity(request.data);
+      break;
+    case "get_zm_noti":
+      getZmNoti(request.data);
+      break;
+    case "change_status_zm_noti":
+      changeStatusZmNoti(request.data);
+      break;
+  }
 });
 
 function addActivity(activity) {
   let url = "http://app.akabiz.net/api/ShopContact/addActivity";
 
-  postData(url, activity).then((data) => {
-    console.log(data);
-  });
+  postData(url, activity);
 }
 
 async function postData(url = "", data = {}) {
@@ -27,4 +34,38 @@ async function postData(url = "", data = {}) {
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
   return response.json(); // parses JSON response into native JavaScript objects
+}
+
+function getZmNoti(shopId) {
+  fetch(
+    `http://dev.akabiz.net/api/ZmTrigger/getZmSendNotiZalo?shopId=${shopId}`
+  )
+    .then((response) => response.json())
+    .then((data) =>
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        if (tabs && tabs.length > 0)
+          chrome.tabs.sendMessage(tabs[0].id, {
+            type: "receive_zm_noti",
+            data: data,
+          });
+      })
+    )
+    .catch((error) =>
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        if (tabs && tabs.length > 0)
+          chrome.tabs.sendMessage(tabs[0].id, {
+            type: "receive_zm_noti",
+            data: { status: -2, message: error },
+          });
+      })
+    );
+}
+
+function changeStatusZmNoti(id) {
+  fetch(
+    `http://dev.akabiz.net/api/ZmTrigger/changeStatusZmSendNotiZalo?id=${id}&status=${true}`,
+    {
+      method: "PATCH",
+    }
+  );
 }

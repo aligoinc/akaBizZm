@@ -75,5 +75,5 @@ async function sendMessageToContentScript(payload) {
     active: true,
     currentWindow: true,
   });
-  const response = await chrome.tabs.sendMessage(tab.id, payload);
+  if (tab) chrome.tabs.sendMessage(tab.id, payload);
 }
