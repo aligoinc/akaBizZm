@@ -38,7 +38,7 @@ async function postData(url = "", data = {}) {
 
 function getZmNoti(shopId) {
   fetch(
-    `http://dev.akabiz.net/api/ZmTrigger/getZmSendNotiZalo?shopId=${shopId}`
+    `http://app.akabiz.net/api/ZmTrigger/getZmSendNotiZalo?shopId=${shopId}`
   )
     .then((response) => response.json())
     .then((data) =>
@@ -63,7 +63,7 @@ function getZmNoti(shopId) {
 
 function changeStatusZmNoti(id) {
   fetch(
-    `http://dev.akabiz.net/api/ZmTrigger/changeStatusZmSendNotiZalo?id=${id}&status=${true}`,
+    `http://app.akabiz.net/api/ZmTrigger/changeStatusZmSendNotiZalo?id=${id}&status=${true}`,
     {
       method: "PATCH",
     }
