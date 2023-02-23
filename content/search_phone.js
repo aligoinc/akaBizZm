@@ -3,7 +3,8 @@ function checkSearchPhone(ele) {
     ele.getAttribute("data-id") == "txt_Main_AddFrd_Phone" ||
     ele.getAttribute("data-translate-inner") == "STR_SEARCH" ||
     (ele.childElementCount != 0 &&
-      ele.firstChild?.getAttribute("data-translate-inner") == "STR_SEARCH")
+      ele.firstElementChild?.getAttribute("data-translate-inner") ==
+        "STR_SEARCH")
   ) {
     let phone = getPhoneInInfo();
     let name = getNameInAddFrd();

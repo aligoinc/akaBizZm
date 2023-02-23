@@ -1,7 +1,7 @@
 {
   "name": "akaBiz Zm",
   "description": "akaBiz thu thập dữ liệu Zalo",
-  "version": "3.0",
+  "version": "4.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
@@ -13,7 +13,7 @@
   "content_scripts": [
     {
         "matches": ["https://chat.zalo.me/", "https://id.zalo.me/"],
-        "js": ["lib/jquery/jquery-3.6.3.min.js", "content/content.js", "content/common.js", "content/add_tag.js", "content/add_friend.js", "content/send_message.js", "content/click_user.js", "content/accept_friend.js","content/search_phone.js", "content/received_message.js"]
+        "js": ["lib/jquery/jquery-3.6.3.min.js", "content/content.js", "content/common.js", "content/add_tag.js", "content/add_friend.js", "content/send_message.js", "content/click_user.js", "content/accept_friend.js","content/search_phone.js", "content/received_message.js", "content/zm_noti.js"]
     }
   ],
   "permissions": [

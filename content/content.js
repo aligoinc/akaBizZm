@@ -16,9 +16,15 @@ chrome.storage.local.get().then((result) => {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  shop = request.shop;
-  isRunning = request.isRunning;
-  execute();
+  if (request.type == "receive_zm_noti") {
+    if (request.data.status === 1) {
+      showZmNoti(request.data.data);
+    }
+  } else {
+    shop = request.shop;
+    isRunning = request.isRunning;
+    execute();
+  }
 });
 
 function execute() {
@@ -69,7 +75,17 @@ function execute() {
 }
 
 async function sendMessageToBackground(payload) {
-  const response = await chrome.runtime.sendMessage(payload);
+  const response = await chrome.runtime.sendMessage({
+    type: "add_activity",
+    data: payload,
+  });
+}
+
+async function sendMessageToBackground_GetZmNoti(payload) {
+  const response = await chrome.runtime.sendMessage({
+    type: "get_zm_noti",
+    data: payload,
+  });
 }
 
 function docKeyup(event) {
