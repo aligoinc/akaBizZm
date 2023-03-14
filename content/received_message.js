@@ -12,6 +12,14 @@ const observer = new MutationObserver(function (mutations) {
         avatarLink = getAvatarByConvMessage(target);
       }
       let content = target.data;
+      if (
+        type === "profile" &&
+        (content === "Ảnh đại diện nhóm đã thay đổi" ||
+          content.endsWith("thêm vào nhóm") ||
+          (content.includes("là sinh nhật của") &&
+            content.endsWith("hãy gửi một lời chúc!")))
+      )
+        return;
 
       let activity = {
         StaffId: shop.staffId,

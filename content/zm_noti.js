@@ -1,7 +1,8 @@
 const zmNotiContainer = document.createElement("div");
 zmNotiContainer.id = "zm-noti-container";
 zmNotiContainer.className = "zl-mini-notification";
-zmNotiContainer.style = "top: auto; bottom: 0px; left: auto; right: 18px;";
+zmNotiContainer.style =
+  "top: auto; bottom: 0px; left: auto; right: 18px; user-select: text;";
 document.body.appendChild(zmNotiContainer);
 
 const maxZmNoti = 5;
@@ -17,9 +18,7 @@ function showZmNoti(zmNotis) {
   zmNotis.slice(0, countCanShow).forEach((zmNoti) => {
     const modal = createZmNoti(
       zmNoti.id,
-      new Date(zmNoti.dateSendExpected).toLocaleString("vi-VN", {
-        timeZone: "Asia/Ho_Chi_Minh",
-      }),
+      zmNoti.titleNoti ?? "",
       zmNoti.contentNoti
     );
     zmNotiContainer.appendChild(modal);
